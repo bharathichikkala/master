@@ -1,0 +1,18 @@
+<h1>Reading a excel file</h1>
+
+<% @records.each do |row| %>
+<table border="1" width="400">
+<% row.each do |value|%>
+
+
+<td colspan="2" width="400">
+  <%= value %>
+
+</td>
+
+
+<% end %>
+</table>
+<% end %>
+<br>
+<%= link_to "Back", root_path%>

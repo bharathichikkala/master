@@ -1,0 +1,50 @@
+<div class="container">
+<% if !flash[:notice].blank? %>
+   <div>
+      <%= flash[:notice] %>
+   </div>
+<% end %>
+
+<br>
+
+<%= link_to "New Resume", new_resume_path %> |
+
+<%= link_to "readExcel", readexcel_path%>|
+
+<%= link_to "readPdf", readpdf_path%> |
+
+<%= link_to "readFile", readfile_path%> |
+
+<%= link_to "writeFile", writefile_path%> |
+
+<%= link_to "readcsv", readcsv_path%> |
+
+<%= link_to "importcsvdata", allproducts_path%> |
+
+<%= link_to "saveexcel", saveproduct_path%> |
+<br>
+<br>
+
+<table border="3">
+   <thead>
+      <tr>
+         <th>Candidate Name</th>
+         <th>Download Link</th>
+         <th>Action</th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <% @resumes.each do |resume| %>
+
+         <tr>
+            <td><%= resume.name %></td>
+            <td><%= link_to "Download", resume.attachment_url %></td>
+            <td><%= link_to "Delete",  resume, method: :delete, confirm: "Are you sure you want to delete #{resume.name}?" %></td>
+         </tr>
+
+      <% end %>
+   </tbody>
+
+</table>
+</div>

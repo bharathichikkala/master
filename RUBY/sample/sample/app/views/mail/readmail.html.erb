@@ -1,0 +1,13 @@
+<h3> reading a unread mail </h3>
+
+
+
+<% @email.each do |row| %>
+<p>
+<%= row %>
+</p>
+<br>
+
+<% end %>
+<br>
+<%= link_to "Back", root_path%>

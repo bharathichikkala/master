@@ -1,0 +1,22 @@
+<h1 align=center> Login form </h1>
+
+<p align=center>
+
+  <%= form_for(:session, :html => {class: "form-horizontal", role: "form"}, url: login_path) do |f| %>
+
+  <p>
+
+    <%= f.label :Email %>
+    <%= f.text_field :email %><br/>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %><br/>
+  </p>
+  <p>
+   <%= f.submit "Login" %>
+  </p>
+  <% end %>
+
+
+  </p>

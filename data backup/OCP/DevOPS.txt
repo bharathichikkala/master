@@ -1,0 +1,6 @@
+-> The word 'DevOps' is a combination of two words 'development' and 'operations.'
+
+-> laas :Logging as a service 
+-> paas :Platform as a Service
+-> saas :Software as a service
+-> Iaas :Infrastructure as a Service (IaaS)

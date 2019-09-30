@@ -1,0 +1,43 @@
+<h1>Create new user</h1>
+<% if @user.errors.any? %>
+
+<h2>The following errors prevented the user from getting created</h2>
+
+<ul>
+
+<% @user.errors.full_messages.each do |msg| %>
+
+<li><%= msg %></li>
+
+<% end %>
+
+</ul>
+
+<% end %>
+<%= form_for @user do |f| %>
+
+<p>
+
+  <%= f.label :username %>
+  <%= f.text_field :name %><br/>
+</p>
+<p>
+  <%= f.label :email_id %>
+  <%= f.text_field :email %><br/>
+</p>
+<p>
+ <%= f.label :phoneNumber %>
+ <%= f.text_field :phone_number %><br/>
+</p>
+<p>
+ <%= f.label :password %>
+ <%= f.password_field :password %><br/>
+</p>
+<p>
+ <%= f.submit "sign up" %>
+</p>
+
+<% end %>
+
+
+<%= link_to 'Back', users_path %>

@@ -1,0 +1,39 @@
+<h1>Showing selected user</h1>
+<%= link_to 'Log out', logout_path, method: :delete %>
+<h1 align="center">Welcome to <%= @user.name %>'s page</h1>
+<%= gravatar_for @user, size: 100 %>
+<p>
+
+username: <%= @user.name %>
+
+</p>
+
+<p>
+
+email: <%= @user.email %>
+
+</p>
+
+<p>
+
+phoneNumber: <%= @user.phone_number %>
+
+</p>
+
+<p>
+
+  <% @user.articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.description %></td>
+      <td><%= article.user.name %></td>
+      <td><%= time_ago_in_words(article.created_at)  %> ago</td>
+      <td><%= link_to 'Show', article %></td>
+      <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td><br/>
+    </tr>
+  <% end %>
+
+  </p>
+
+<%= link_to 'back', users_path %>

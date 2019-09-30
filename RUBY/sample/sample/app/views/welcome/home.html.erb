@@ -1,0 +1,39 @@
+<div align=center class="jumbotron">
+
+
+<%= image_tag 'log.png' %>
+<h1 align=center> Welcome </h1>
+
+
+<%# <%= link_to image_tag('log.png'), 'www.medicalbulkbuy.com' %>
+</div>
+
+
+
+<div>
+
+<% if logged_in? %>
+
+<%= link_to 'Log out', logout_path, method: :delete %>
+
+<% else %>
+
+<%= link_to 'Log in', login_path %>
+<%= link_to 'Sign up', signup_path %>
+<% end %>
+
+</div>
+<div>
+<p>
+<% if logged_in? %>
+<%= link_to 'about',about_path %>
+
+<%= link_to 'articles',articles_path %>
+
+<%= link_to 'Users',users_path %>
+
+<%= link_to 'ReadMail', readmail_path %>
+
+<% end %>
+</p>
+</div>
