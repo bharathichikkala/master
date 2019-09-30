@@ -1,0 +1,196 @@
+<!--<header id="header" class="animated fadeInDown">
+  <div id="logo-group">
+    <span id="logo">
+  
+         </span>
+  </div>
+</header>-->
+<!-- <br><br> -->
+<!-- <div id="main" role="main" class="animated fadeInDown"> -->
+  <!-- MAIN CONTENT -->
+  <!-- <div id="content" class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 " style="margin-left:27%">
+        <div class="loginui well no-padding">
+          <form [formGroup]="complexForm" method="post" *ngIf="userRegisterModel" class="smart-form client-form">
+            <header class="header-tag" style="background-color:white">
+              <img src="../../../assets/img/logom.png" alt="MedicalBulkBuy">
+              <div class="app-version">Version 9.0</div>
+            </header>
+            <fieldset>
+              <section *ngIf="errorMessage" class="icon-color-bad text-center"> {{errorMessage}} </section>
+              <section *ngIf="forgotPasswordMessage" class="text-success text-center">{{forgotPasswordMessage}}</section>
+              <section class="otp-section">
+                <label class="label" for="otp" [ngClass]="{'has-error':! this.otp.valid &&  this.otp}">OTP</label>
+
+                <div class="form-group form-control  input">
+                  <label class="input">
+                    <i class="icon-append fa fa-user"></i>
+                    <input type="text" name="otp" [formControl]="this.otp" [(ngModel)]="userRegisterModel.otp"
+                      placeholder="OTP" />
+
+                    <span *ngIf=" this.otp.hasError('required') &&submitted  " class=" icon-color-bad ">Please enter
+                      otp</span>
+
+                    <span *ngIf=" this.otp.hasError('pattern') " class=" icon-color-bad ">Please enter only 6 numeric
+                      characters for OTP</span>
+
+                  </label>
+                </div>
+              </section>
+
+
+              <section class="otp-section">
+                <label class="label" for="password" [ngClass]="{'has-error':! this.password.valid &&  this.password}">Password</label>
+
+                <div class="form-group form-control  input">
+                  <label class="input">
+                    <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="password" [formControl]="this.password" [(ngModel)]="userRegisterModel.password"
+                      placeholder="Password" />
+                    <span *ngIf=" this.password.hasError('required')  && submitted" class=" icon-color-bad ">Please
+                      enter password</span>
+                  </label>
+                </div>
+              </section>
+
+
+              <section class="otp-section">
+                <label class="label" for="retypePassword" [ngClass]="{'has-error':! this.retypePassword.valid &&  this.retypePassword}">Confirm
+                  Password</label>
+
+                <div class="form-group form-control  input">
+                  <label class="input">
+                    <i class="icon-append fa fa-lock"></i>
+                    <input type="password" name="retypePassword" [formControl]="this.retypePassword" [(ngModel)]="userRegisterModel.reTypepassword"
+                      placeholder="Confirm Password" />
+                    <span class=" icon-color-bad " *ngIf=" (userRegisterModel.reTypepassword) && (userRegisterModel.password != userRegisterModel.reTypepassword) ">Password
+                      miss match</span>
+                    <span *ngIf=" this.retypePassword.hasError('required')  && submitted" class=" icon-color-bad ">Please
+                      Enter Re-Type Password</span>
+                  </label>
+                </div>
+              </section>
+
+            </fieldset>
+            <br>
+
+
+            <div class="row show-grid">
+              <div class="col-xs-1 "> </div>
+              <div class="col-xs-4 ">
+                <span class="hidden-mobile hiddex-xs"><b>Already registered ? </b> </span>
+                <a routerLink="/loginUrl">
+                  <u> <b> Sign In </b></u>
+                </a>
+              </div>
+            </div>
+            <br>
+
+            <footer style="background-color:white">
+              <button (click)="register(userRegisterModel)" [disabled]="!complexForm.valid" class="btn btn-primary">
+                Reset
+                <i class="fa fa-cog fa-spin" *ngIf="loading"></i>
+                <span *ngIf="loading">loading...</span>
+              </button>
+            </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+ -->
+
+<div class="wrapper wrapper-full-page">
+  <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('assets/img/background.jpg'); background-size: cover; background-position: top center;height: 100%;">
+    <div class="container">
+      <br><br><br><br>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+          <!--<form [formGroup]="complexForm" method="post" *ngIf="userLogin" class="smart-form client-form">-->
+          <form [formGroup]="complexForm" *ngIf="userRegisterModel" class="form ng-untouched ng-pristine ng-valid"
+            method="" novalidate="">
+            <div class="card card-login">
+              <div class="card-header text-center">
+                <img src="assets/img/logom.png" width="100%"><br/>
+                <h3 style="color:#2B55A3;font-weight: bold;">Reset Password</h3>
+              </div>
+              <div class="card-body ">
+                <section *ngIf="errorMessage" style="color: red" class="icon-color-bad text-center"> {{errorMessage}} </section>
+                <section *ngIf="forgotPasswordMessage" class="text-success text-center">{{forgotPasswordMessage}}</section>
+                <!-- <section class="otp-section"> -->
+                <!-- <label class="label" for="otp" [ngClass]="{'has-error':! this.otp.valid &&  this.otp}">OTP</label> -->
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <!-- <i class="icon-append fa fa-user"></i> -->
+                    <input class="form-control" placeholder="OTP" name="otp" type="number" [formControl]="this.otp"
+                      [(ngModel)]="userRegisterModel.otp" >
+                      </div>
+                    <span *ngIf=" this.otp.hasError('required') &&submitted  " style="color:red" class=" icon-color-bad ">Please enter
+                      otp</span>
+
+                    <span *ngIf=" this.otp.hasError('pattern') " style="color:red" class=" icon-color-bad ">Please enter 6 digits OTP</span>
+                  
+                </span>
+                <!-- </section> -->
+                <br>
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="Password" name="password" type="password" [formControl]="this.password"
+                      [(ngModel)]="userRegisterModel.password">
+                  </div>
+                  <span *ngIf=" this.password.hasError('required')  && submitted" style="color:red" class=" icon-color-bad ">Please
+                    enter password</span>
+                </span>
+                <br>
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="Confirm Password" type="password" name="retypePassword"
+                      [formControl]="this.retypePassword" [(ngModel)]="userRegisterModel.reTypepassword">
+                  </div>
+                  <span class=" icon-color-bad " style="color:red" *ngIf=" (userRegisterModel.reTypepassword) && (userRegisterModel.password != userRegisterModel.reTypepassword) ">Password
+                    miss match</span>
+                  <span *ngIf=" this.retypePassword.hasError('required')  && submitted" style="color:red" class=" icon-color-bad ">Please
+                    Enter Re-Type Password</span>
+                </span>
+
+                <br>
+                <span class="bmd-form-group">
+                  <div class="input-group">
+                    <span class="hidden-mobile hiddex-xs"><b>Already registered?</b> </span>
+                    <a routerLink="/loginUrl">
+                      <u><b> Sign In</b></u>
+                    </a>
+                  </div>
+                </span>
+              </div>
+              <!-- <br> -->
+              <!-- <footer style="background-color:white"> -->
+              <div class="card-footer">
+                <button style="margin-left: 100px;" (click)="register(userRegisterModel)" [disabled]="!complexForm.valid"
+                  class="btn btn-primary"><strong *ngIf="!loading">
+                  Reset</strong>
+                  <i class="fa fa-cog fa-spin" *ngIf="loading"></i>
+                  <span *ngIf="loading"><strong>loading...</strong></span>
+                </button>
+              </div>
+              <!-- </footer> -->
+              <!-- <span style="color:red;text-align:center">{{loginErrorMessage}}</span> -->
+              <!-- <div class="card-footer justify-content-center"> -->
+              <!-- <button mat-raised-button color="primary" (click)="doLogin()">Login</button> -->
+              <!-- </div> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="footer ">
+      <div class="container">
+
+
+      </div>
+    </footer>
+  </div>
+</div>

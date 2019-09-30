@@ -1,0 +1,53 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;"
+            routerLink="/rental-products/rentals">Rental
+            Product</span> <span> / Payment Images</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer
+                    color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Dispatch Image Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="well padding-10">
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div *ngIf='this.dispatchImage'> <img alt="Dispatch Image" [src]="this.dispatchImage"
+                                            class="zoom" height="100%" width="100%" /></div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div *ngIf='this.dispatchImage1'> <img alt="Dispatch Image" [src]="this.dispatchImage1" width="100%"
+                                            class="zoom" height="100%" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <div *ngIf='this.dispatchImage2'><img alt="Dispatch Image" [src]="this.dispatchImage2" width="100%"
+                                            class="zoom" height="100%" /></div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>
+<loader [loading]="loading"> </loader>

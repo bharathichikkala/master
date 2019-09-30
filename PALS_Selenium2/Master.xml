@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Sprint 3" verbose="1">
+	<test name="Sprint1">
+		<classes>
+			<class name="com.pals.test.login.TestLoginPageActions" />
+			<class name="com.pals.test.loads.TestLoadPageActions"></class>
+		</classes>
+	</test>
+
+</suite>

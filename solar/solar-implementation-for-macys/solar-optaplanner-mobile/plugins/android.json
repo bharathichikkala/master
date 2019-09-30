@@ -1,0 +1,54 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-geofence": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PLAY_SERVICES_LOCATION_VERSION": "16.+",
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "ANDROID_SUPPORT_V4_VERSION": "26.1.0",
+      "PACKAGE_NAME": "com.example.solar"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "com.example.solar"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.example.solar"
+    }
+  }
+}

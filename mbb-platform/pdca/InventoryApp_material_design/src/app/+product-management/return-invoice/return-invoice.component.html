@@ -1,0 +1,288 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title" style="text-align:center">Return Management</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="returnManagementForm">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <!-- <mat-form-field class="example-full-width">
+                                                <input matInput name="invoiceId" formControlName="invoice"
+                                                    [(ngModel)]="invoiceId">
+                                                <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder>
+                                            </mat-form-field> -->
+                                    <mat-form-field class="example-full-width">
+                                        <!-- <input matInput name="invoiceId" formControlName="invoice" [(ngModel)]="invoiceId"
+                                            (keyup)="getInvoiceSbasedonSearch()" autocomplete="off">
+                                        <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder> -->
+                                        <label><b>Return Type</b></label>
+                                        <mat-select formControlName="returnType" [(ngModel)]="typeofReturn"
+                                            (selectionChange)="changeReturn()" matInput>
+                                            <mat-option value="" disabled>Select</mat-option>
+                                            <mat-option *ngFor="let type of Returns" [value]="type.id">
+                                                {{type.type}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf='showNormalReturn' class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title" style="text-align:center">Return Invoice</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="invoiceForm">
+
+                            <div class="row">
+                                <div class="col-sm-10 col-10">
+                                    <!-- <mat-form-field class="example-full-width">
+                                        <input matInput name="invoiceId" formControlName="invoice"
+                                            [(ngModel)]="invoiceId">
+                                        <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder>
+                                    </mat-form-field> -->
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput name="invoiceId" formControlName="invoice" [(ngModel)]="invoiceId"
+                                            (keyup)="getInvoiceSbasedonSearch()" autocomplete="off">
+                                        <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder>
+                                    </mat-form-field>
+
+                                    <div class="height-skus">
+                                        <div *ngFor="let key of filteredInvoicesList" (click)="selectInvoice(key)"
+                                            style="border-bottom:1px solid #AAAAAA;padding: 3px">
+                                            {{key}} </div>
+                                    </div>
+                                    <span *ngIf="invoiceForm.controls['invoice'].hasError('required') &&formValidate "
+                                        class="text-danger">Please
+                                        enter Invoice Id</span>
+                                </div>
+                                <div class="col-sm-2 col-2" (click)="getInvoiceBybarcode()" style="margin: auto"><img
+                                        src="assets/img/qr-code.png">
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" class="btn btn-danger pull-center" (click)="navigatetoHomePage()">Cancel</button>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-center" (click)="navigatetoInvoice()">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf='showRentalreturn' class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title" style="text-align:center">Rental Invoice</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="rentalInvoiceForm">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <!-- <mat-form-field class="example-full-width">
+                                        <input matInput name="invoiceId" formControlName="invoice"
+                                            [(ngModel)]="invoiceId">
+                                        <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder>
+                                    </mat-form-field> -->
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput name="rentalInvoiceId" formControlName="invoiceId" [(ngModel)]="rentalInvoiceId"
+                                            (keyup)="getInvoiceSbasedonSearchInRental()" autocomplete="off">
+                                        <mat-placeholder class="placeholder">Invoice Id *</mat-placeholder>
+                                    </mat-form-field>
+
+                                    <div class="height-skus">
+                                        <div *ngFor="let key of filteredInvoicesListInRental" (click)="selectInvoiceInRental(key)"
+                                            style="border-bottom:1px solid #AAAAAA;padding: 3px">
+                                            {{key}} </div>
+                                    </div>
+                                    <span *ngIf="rentalInvoiceForm.controls['invoiceId'].hasError('required') &&submitted "
+                                        class="text-danger">Please
+                                        enter Invoice Id</span>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" class="btn btn-danger pull-center" (click)="navigatetoHomePage()">Cancel</button>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-center" (click)="navigatetoRentalInvoice()">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf='showDemoreturn' class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title" style="text-align:center">Demo Invoice</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="demoInvoiceForm">
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput name="rentalInvoiceId" formControlName="invoice" [(ngModel)]="demoInvoiceId"
+                                            (keyup)="getDemosBasedonSearch()" autocomplete="off">
+                                        <mat-placeholder class="placeholder">Demo Id *</mat-placeholder>
+                                    </mat-form-field>
+
+                                    <div class="height-skus">
+                                        <div *ngFor="let key of filteredDemoInvoicesList" (click)="selectDemoInvoice(key)"
+                                            style="border-bottom:1px solid #AAAAAA;padding: 3px">
+                                            {{key}} </div>
+                                    </div>
+                                    <span *ngIf="demoInvoiceForm.controls['invoice'].hasError('required') &&demoFormValidate "
+                                        class="text-danger">Please
+                                        enter demo Id</span>
+                                </div>
+
+                            </div>
+                            <button mat-raised-button type="button" class="btn btn-danger pull-center" (click)="navigatetoHomePage()">Cancel</button>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-center" (click)="navigatetoDemoInvoice()">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <br><br>
+                <div *ngIf="array.length>0 && showNormalReturn">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title" style="text-align:center">Return QR Code</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>QRCode</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of productData">
+                                            <td>{{item.inventoryItem.barcode}}</td>
+                                            <td>
+                                                <mat-checkbox [(ngModel)]="item.condition" name="checkbox">
+                                                </mat-checkbox>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="submit()">Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="rentalArray.length>0 && showRentalreturn">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title" style="text-align:center">Rental QR Code</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>QRCode</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of rentalProductData">
+                                            <td>{{item.inventoryItem.barcode}}</td>
+                                            <td>
+                                                <mat-checkbox (click)="$event.preventDefault()" [(ngModel)]="item.condition"
+                                                    name="checkbox">
+                                                </mat-checkbox>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form [formGroup]="rentalReasonForm">
+                                        <mat-form-field>
+                                            <label>Add Reasons</label>
+                                            <mat-select matInput [(ngModel)]="rentalReason" formControlName='rentalReason'
+                                                required>
+                                                <mat-option value='' disabled>Select</mat-option>
+                                                <mat-option *ngFor="let reason of rentalReasons" [value]="reason.id">
+                                                    {{reason.status}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <span *ngIf="rentalReasonForm.controls['rentalReason'].hasError('required') && rentalSub"
+                                            class=" text-danger">Please
+                                            select Add Reasons</span>
+                                    </form>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="submitRental()">Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="demoArray.length>0 && showDemoreturn">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title" style="text-align:center">Demo QR Code</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>QRCode</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of demoProductData">
+                                            <td>{{item.inventoryItem.barcode}}</td>
+                                            <td>
+                                                <mat-checkbox [(ngModel)]="item.condition" name="checkbox" checked
+                                                    (click)="noCarToastr($event, hasCar)">
+                                                </mat-checkbox>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <br />
+
+                                </table>
+
+
+                            </div>
+                            <form [formGroup]="returnForm">
+                                <div class="row">
+                                    <div class="col-sm-12 col-12">
+                                        <mat-form-field>
+                                            <label><b>Return Type</b></label>
+                                            <mat-select [(ngModel)]="typeOfReturn" formControlName="type" matInput>
+                                                <mat-option value="" disabled>Select</mat-option>
+                                                <mat-option *ngFor="let type of ReturnTypes" [value]="type.id">
+                                                    {{type.status}}</mat-option>
+
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                        <span *ngIf="returnForm.controls['type'].hasError('required') &&returnFormSubmitted "
+                                            class="text-danger">Please
+                                            select return type</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="typeOfReturn==10" class="row">
+                                    <div class="col-sm-12 col-12">
+                                        <mat-form-field>
+                                            <label><b>Comments</b></label>
+                                            <textarea formControlName="comments" matInput [(ngModel)]="comments">
+                            </textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </form>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="submitDemo()">Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

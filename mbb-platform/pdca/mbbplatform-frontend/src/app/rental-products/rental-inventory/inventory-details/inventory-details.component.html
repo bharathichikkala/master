@@ -1,0 +1,185 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;"
+            routerLink="/rental-products/rental-inventory">Rental Products</span>
+        <span> / {{sku}} Details</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer
+                    color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-bar-chart-o"></i>
+                        </span>
+                        <h2 style="margin-right:2%;"><span *ngIf='productName != null'>{{productName}}</span><span
+                                *ngIf='productName == null'>Inventory</span> -Details </h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <form class="smart-form" id="dealer-filter-form">
+                                <fieldset style="padding:0px">
+                                    <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                        <label class="control-label"><b>From</b></label>
+                                        <my-date-picker [options]="myDatePickerOptions" [selDate]="startDate"
+                                            [(ngModel)]="QueryData.startDate" name="startDate"></my-date-picker>
+                                    </section>
+                                    <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                        <label class="control-label"><b>To</b></label>
+                                        <my-date-picker [options]="myDatePickerOptions" [selDate]="endDate"
+                                            [(ngModel)]="QueryData.endDate" name="endDate"></my-date-picker>
+                                        <div class="icon-color-bad">{{errorMessage}}</div>
+                                    </section>
+                                    <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                        <br>
+                                        <button type="button" title="Submit" class="btn btn-sm btn-primary"
+                                            id="filter-submit" (click)="QuerySubmit()">Submit</button>
+                                    </section>
+                                    <section style="width: 132px;float: right;" class="form-group col-sm-3 padding-5">
+                                        <label class="control-label"><b>Status:</b></label>
+                                        <select class="form-control ng-pristine ng-valid ng-touched"
+                                            (change)="getInventoryDetails()" [(ngModel)]="id"
+                                            [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let list of listDetails" [value]="list.id">
+                                                {{list.list_name}}</option>
+                                        </select>
+                                    </section>
+                                </fieldset>
+                            </form>
+                            <!-- <div class="row">
+                                <div class="col-sm-5"></div>
+                                <div class="col-sm-5"></div>
+                                <div class="col-sm-2">
+                                    <label>List:</label>
+                                    <select class="form-control ng-pristine ng-valid ng-touched" (change)="getInventoryDetails()"
+                                        [(ngModel)]="id" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let list of listDetails" [value]="list.id">{{list.list_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="well padding-10">
+
+                        <sa-datatable id="inventoryDetailsDataTable" [options]="inventoryDetails"
+                            tableClass="table table-striped table-bordered table-hover" paginationLength="true"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th>QR Code </th>
+                                    <th>PO Number</th>
+                                    <th>Serial Number</th>
+                                    <th>Created Date </th>
+                                    <th>Updated Date</th>
+                                    <th>User</th>
+                                    <th>Facility</th>
+                                    <th>History</th>
+                                    <th>Action</th>
+                                    <!-- <th>To Facility</th> -->
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </sa-widgets-grid>
+</div>
+<div bsModal #historyModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="historyModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><strong>History</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div style='border: 0px solid #CCC;'>
+                        <form [formGroup]="historyForm">
+                            <div class="col-sm-12">
+                                <div style="margin-top:2px;margin-bottom:2px">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-3"><label for="status"><b>Add History :</b></label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group" style="margin-bottom:0px">
+                                            <textarea [(ngModel)]='history' formControlName="history" id="history"
+                                                class="form-control" rows='10' cols='18' placeholder="History"
+                                                style='resize: none;'></textarea>
+                                            <span *ngIf="historyForm.get('history').hasError('required') && submitted"
+                                                class=" icon-color-bad ">Please
+                                                enter history</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <div style='text-align:center;'>
+                                    <span style="text-align:center;font-weight:bold;color:red">{{rentalFail}}</span>
+                                    <span
+                                        style="text-align:center;font-weight:bold;color:green">{{rentalSuccess}}</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top:12px;">
+                    <button type="button" class="btn btn-default" (click)="hideHistory()">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" [disabled]='btnDisable' (click)="addHistory()">
+                        Add History
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #showHistoryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="showHistoryModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title" style="text-align: center"><strong>History Details
+                    </strong></h2>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Added Date</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">QR Code</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let details of this.historyDetails">
+                        <tr>
+                            <td scope="row">{{details.createdTime|date:'dd-MM-yyyy'}}</td>
+                            <td>{{details.historyDetails}}</td>
+                            <td>{{details.barcode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="showHistoryModal.hide()">
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <loader [loading]="loading"></loader>
+</div>

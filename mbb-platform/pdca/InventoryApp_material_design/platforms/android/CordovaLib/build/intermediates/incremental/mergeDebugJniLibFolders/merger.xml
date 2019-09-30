@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/bveeramosu/Desktop/MBB_MOBILE/2ndJuly2019_12.0_QA/platforms/android/CordovaLib/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/home/bveeramosu/Desktop/MBB_MOBILE/2ndJuly2019_12.0_QA/platforms/android/CordovaLib/src/debug/jniLibs"/></dataSet></merger>

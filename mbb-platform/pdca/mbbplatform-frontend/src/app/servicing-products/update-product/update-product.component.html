@@ -1,0 +1,581 @@
+<div id="content">
+  <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/servicing-products">Servicing
+      Products</span> <span> / Update Servicing Product</span> </div>
+  <sa-widgets-grid>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+          [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>Update Servicing Product</h2>
+          </header>
+          <div *ngIf="showCustomerDetailsForm" class="widget-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="spForm" (ngSubmit)="addProduct()">
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="orderId"><b>Order Id <font class="icon-color-bad">*</font> : </b></label>
+                        <input type="text" (change)="getProductName($event)" class="form-control" [(ngModel)]="productDetails.orderId"
+                          id="orderId" name="orderId" formControlName="orderId">
+                        <span *ngIf="this.submitted && productDetails.orderId == '' " class="icon-color-bad ">Please
+                          enter orderId
+                        </span>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="orderDate"><b>Order Date<font class="icon-color-bad">*</font> :</b></label>
+                        <my-date-picker [options]="datePickerOptions" [selDate]="dateOfBirth" placeholder="Select Ordered Date"
+                          [(ngModel)]="productDetails.orderDate" name="mydate" (dateChanged)="onDateChanged($event)"
+                          required formControlName="orderDate"></my-date-picker>
+                        <span *ngIf="this.submitted && productDetails.orderDate == '' " class="icon-color-bad ">Please
+                          select ordered
+                          date</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-4">
+                        <table class="table borderless" style="border:0px">
+                          <thead>
+                            <tr>
+                              <th colspan="2" style="text-align:center">
+                                Product Details
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            <tr class="form-group">
+                              <td><label for="skuCode"><b>SKU Code<font class="icon-color-bad">*</font> </b></label>
+                              </td>
+                              <td><input type="text" (change)="getDetailsBySku($event)" class="form-control"
+                                  [(ngModel)]="productDetails.skuCode" name="skuCode" id="skuCode" formControlName="skuCode">
+                                <span *ngIf="this.submitted && productDetails.skuCode == '' " class="icon-color-bad ">Please
+                                  enter skucode
+                                </span></td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="productName"><b>Product Name<font class="icon-color-bad">*</font>
+                                  </b></label></td>
+                              <td><input type="text" readonly class="form-control" [(ngModel)]="productDetails.productName"
+                                  name="serialNumber" id="serialNumber" formControlName="productName">
+                                <span *ngIf="this.submitted && productDetails.productName == '' " class="icon-color-bad ">Please
+                                  enter product name
+                                </span></td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="productSerialNumber"><b>Product Serial Number
+                                  </b></label></td>
+                              <td><input type="text" class="form-control" [attr.disabled]="serialNumberStatus ? true:null"
+                                  [(ngModel)]="productDetails.productSerialNumber" name="serialNumber" id="serialNumber"
+                                  formControlName="productSerialNumber">
+                                <span *ngIf="this.submitted && productDetails.productSerialNumber == '' " class="icon-color-bad ">Please
+                                  enter product serial number
+                                </span></td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="check_warranty"><b>Product is in Warranty<font class="icon-color-bad">*
+                                    </font>
+                                  </b></label></td>
+                              <td><select class="form-control" name="warranty" [(ngModel)]="productDetails.warranty"
+                                  (change)="checkWarranty($event)" id="warranty" formControlName="warranty">
+                                  <option disabled value=''>Select</option>
+                                  <option *ngFor="let a of warrantySelect" [value]="a.value">{{a.name}}</option>
+
+                                </select>
+                                <span *ngIf="this.submitted && productDetails.warranty == '' " class="icon-color-bad ">Please
+                                  select warranty
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td> <label for="warranty"><b>Warranty (in years)
+                                  </b></label></td>
+                              <td> <input type="text" [attr.disabled]="warranty ? true:null" [(ngModel)]="productDetails.warrantyInYears"
+                                  class="form-control" name="warrantyDays" id="warrantyDays" formControlName="warrantyInDays">
+                                <span *ngIf="spForm.get('warrantyInDays').hasError('required') && this.submitted" class="icon-color-bad ">Please
+                                  enter no.of days
+                                </span></td>
+                            </tr>
+                            <tr class="form-group">
+                              <td> <label for="qrCode"><b>QR Code</b></label></td>
+                              <td><input type="text" class="form-control" name="qrCode" [(ngModel)]="productDetails.qrCode"
+                                  id="qrCode" formControlName="qrCode">
+
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td> <label for="return_policy"><b>10 Days Return Policy</b></label></td>
+                              <td> <select class="form-control" name="returnPolicy" [(ngModel)]="productDetails.tenDaysReturnPolicy"
+                                  id="returnPolicy" formControlName="tenDaysReturnPolicy">
+                                  <option disabled value=null>Select</option>
+                                  <option *ngFor="let a of returnPolicy" [value]="a.value">{{a.name}}</option>
+
+                                </select>
+
+                              </td>
+                            </tr>
+                            <tr class="form-grpup">
+                              <td><label for="runTime"><b>Product Run Time </b></label></td>
+                              <td><input type="text" class="form-control" [(ngModel)]="productDetails.runTime" id="runTime"
+                                  name="runTime" formControlName="runTime">
+
+                              </td>
+                            </tr>
+
+
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-sm-4">
+                        <table class="table borderless">
+                          <thead>
+                            <tr>
+                              <th colspan="2" style="text-align:center">Customer Details</th>
+                            </tr>
+                          </thead>
+                          <tbody formGroupName="customerDetails">
+                            <tr class="form-group">
+                              <td><label for="name"><b>Name<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="text" class="form-control" formControlName="name" id="name" [(ngModel)]="productDetails.customerDetailsId.name">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.name == '' " class="icon-color-bad ">Please
+                                  enter name
+                                </span>
+                                <span *ngIf="spForm.get('customerDetails.name').hasError('maxlength')" class="icon-color-bad ">
+                                  name length should be less tha 64 characters
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="email"><b>Email</b></label></td>
+                              <td><input type="email" class="form-control" formControlName="email" id="emial"
+                                  [(ngModel)]="productDetails.customerDetailsId.emailId">
+                                <!-- <span *ngIf="this.submitted && productDetails.customerDetailsId.emailId == '' "
+                                  class="icon-color-bad ">Please
+                                  enter email
+                                </span> -->
+                                <span *ngIf="spForm.get('customerDetails.email').hasError('pattern') " class="icon-color-bad ">Please
+                                  enter valid email
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="phone"><b>Mobile<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="number" class="form-control" formControlName="phone" id="phone"
+                                  [(ngModel)]="productDetails.customerDetailsId.phone">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.phone == '' " class="icon-color-bad ">Please
+                                  enter mobile number
+                                </span>
+                                <span *ngIf="spForm.get('customerDetails.phone').hasError('pattern')  " class="icon-color-bad ">
+                                  mobile number should be 10 digits
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="address"><b>Address<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="text" class="form-control" formControlName="address" id="address"
+                                  [(ngModel)]="productDetails.customerDetailsId.address">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.address == '' " class="icon-color-bad ">Please
+                                  enter address
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="city"><b>City<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="text" class="form-control" formControlName="city" id="city" [(ngModel)]="productDetails.customerDetailsId.city">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.city == '' " class="icon-color-bad ">Please
+                                  enter city
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="state"><b>State<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="text" class="form-control" formControlName="state" id="phone"
+                                  [(ngModel)]="productDetails.customerDetailsId.state">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.state == '' " class="icon-color-bad ">Please
+                                  enter state
+                                </span>
+                              </td>
+                            </tr>
+                            <tr class="form-group">
+                              <td><label for="pin"><b>Pincode<font class="icon-color-bad">*</font></b></label></td>
+                              <td><input type="text" class="form-control" formControlName="pincode" id="pin"
+                                  [(ngModel)]="productDetails.customerDetailsId.pincode">
+                                <span *ngIf="this.submitted && productDetails.customerDetailsId.pincode == '' " class="icon-color-bad ">Please
+                                  enter pincode
+                                </span>
+                                <span *ngIf="spForm.get('customerDetails.pincode').hasError('pattern')  " class="icon-color-bad ">Please
+                                  enter 6 digits only
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="remarks"><b>Customer Remarks<font class="icon-color-bad">*</font>:</b></label>
+                        <textarea class="form-control" name="remarks" [(ngModel)]="productDetails.customerRemarks"
+                          formControlName="customerRemarks"></textarea>
+                        <span *ngIf="this.submitted && productDetails.customerRemarks == '' " class="icon-color-bad ">Please
+                          enter customer remarks
+                        </span>
+                        <span *ngIf="spForm.get('customerRemarks').hasError('maxlength')" class="icon-color-bad ">
+                          customer remarks should be less than 1000 characters
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="receivedBy"><b>Received By<font class="icon-color-bad">*</font>:</b></label>
+                        <input type="text" class="form-control" [(ngModel)]="productDetails.receivedBy" name="received"
+                          formControlName="receivedBy">
+                        <span *ngIf="this.submitted && productDetails.receivedBy == '' " class="icon-color-bad ">Please
+                          enter name
+                        </span>
+                        <span *ngIf="spForm.get('receivedBy').hasError('maxlength')" class="icon-color-bad ">
+                          name should be less than 64 characters
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-3">
+                      <button class="btn btn-success" (click)="submitForm()">Next</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </sa-widget>
+        <br>
+        <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+          [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>Quotation Details</h2>
+          </header>
+          <div *ngIf="quotationform" class="widget-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="qutationDetailsForm" novalidate>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4">
+                      <table class="table borderless" style="border:0px">
+                        <thead>
+                          <tr>
+                            <th colspan="2" style="text-align:center">Charges Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="form-group">
+                            <td><label for="serviceCharges"><b>Service Charges
+                                </b></label></td>
+                            <td><input type="number" formControlName="serviceCharges" (input)="addQuotationDetails()"
+                                [(ngModel)]="quatationDetails.serviceCharges" class="form-control">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('serviceCharges').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter service charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td><label for="courierCharges"><b>Courier Charges
+                                </b></label></td>
+                            <td><input type="number" formControlName="courierCharges" (input)="addQuotationDetails()"
+                                [(ngModel)]="quatationDetails.courierCharges" class="form-control">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('courierCharges').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter courier charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td><label for="otherCharges"><b>Other Charges</b></label></td>
+                            <td><input type="number" class="form-control" (input)="addQuotationDetails()" [(ngModel)]="quatationDetails.otherCharges"
+                                formControlName="otherCharges">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('otherCharges').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter other charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td> <label for="igst"><b>IGST</b></label></td>
+                            <td><input type="number" class="form-control" (input)="addQuotationDetails()" [(ngModel)]="quatationDetails.igst"
+                                formControlName="igst">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('igst').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter IGST charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td><label for="cgst"><b>CGST</b></label></td>
+                            <td><input type="number" class="form-control" (input)="addQuotationDetails()" [(ngModel)]="quatationDetails.cgst"
+                                formControlName="cgst">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('cgst').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter CGST charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td><label for="sgst"><b>SGST</b></label></td>
+                            <td><input type="number" class="form-control" (input)="addQuotationDetails()" [(ngModel)]="quatationDetails.sgst"
+                                formControlName="sgst">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('sgst').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter SGST charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr class="form-group">
+                            <td><label for="utgst"><b>UTGST</b></label></td>
+                            <td><input type="number" class="form-control" (input)="addQuotationDetails()" [(ngModel)]="quatationDetails.utgst"
+                                formControlName="utgst">
+                              <span *ngIf="this.quotationDetailsSubmitted && qutationDetailsForm.get('utgst').hasError('required')"
+                                class="icon-color-bad ">Please
+                                enter UTGST charges
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><b>Sub Total</b></td>
+                            <td><input type="text" [(ngModel)]="quotationTotal" [ngModelOptions]="{standalone: true}"
+                                class="form-control" readonly></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                    <div class="col-sm-4">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <td colspan="3" style="text-align:center"><b>Spare parts</b></td>
+                            <th><button (click)="onAddItem()" class="btn btn-success">Add</button></th>
+                          </tr>
+
+                          <tr>
+                            <th><b>SKU</b></th>
+                            <th><b>Product Name</b></th>
+                            <th><b>Price </b></th>
+                            <th style="width:10%">Actions</th>
+
+                          </tr>
+
+                        </thead>
+                        <tbody formArrayName="items" *ngFor="let item of qutationDetailsForm.controls['items'].controls;let i=index">
+                          <tr [formGroupName]="i">
+                            <td>
+                              <input type="text" class="form-control" formControlName="sku" (change)="getSkuDetails($event,i)">
+                              <span *ngIf="item.get('sku').hasError('required') && sparePartsSubmitted" class=" icon-color-bad ">Please
+                                enter Sku code</span>
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" formControlName="productName">
+                              <span *ngIf="item.get('productName').hasError('required') && sparePartsSubmitted" class=" icon-color-bad ">Please
+                                enter product name</span>
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" (input)="getTotal()" formControlName="price">
+                              <span *ngIf="item.get('price').hasError('required') && sparePartsSubmitted" class=" icon-color-bad ">Please
+                                enter price</span>
+                            </td>
+                            <td (click)="onDeleteItem(i)" style="text-align:center;padding: 14px;">
+                              <a class="editor_remove"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody>
+                          <tr>
+                            <td colspan="2" style="text-align:center">
+                              <b>Sub Total</b>
+                            </td>
+                            <td colspan="2"><input type="text" [(ngModel)]="sparePartsTotal" [ngModelOptions]="{standalone: true}"
+                                class="form-control" readonly></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <span style="text-align:center;font-weight:bold;color:red">{{errorAlertMessages}}<br></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                      <table class="table borderless" style="border:0px">
+                        <thead>
+                          <tr>
+                            <th><label for="totalCharges"><b>Total Charges</b></label></th>
+                            <th><input type="text" [ngModel]="totalValue()" [ngModelOptions]="{standalone: true}"
+                                readonly class="form-control"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+
+                      </table>
+                    </div>
+
+                  </div>
+                  <span style="text-align:center;font-weight:bold;color:red">{{detailsErrorMessage}}</span>
+                  <div class="row">
+                    <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning" (click)="gotoHomePage()">Cancel</button></div>
+                    <div class="col-sm-6"><button class="btn btn-success" (click)="addDetails()" type="submit"> Next
+                      </button></div>
+
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </sa-widget>
+        <!-- <br />
+        <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+          [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>Payment Details</h2>
+          </header>
+          <div *ngIf="showPaymentDetailsForm" class="widget-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="paymentDetailsForm" novalidate>
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <label for="paymentStatus"><b>Payment Status<font class="icon-color-bad">*</font></b></label>
+                      <select class="form-control" formControlName="paymentStatus">
+                        <option disabled value=null>Select</option>
+                        <option *ngFor="let a of paymentStatuses" [value]="a.value">{{a.name}}</option>
+                      </select>
+                      <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentStatus').hasError('required')"
+                        class="icon-color-bad ">Please
+                        select payment status
+                      </span>
+                    </div>
+                  </div> <br />
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3" formGroupName="paymentModeId">
+                      <label for="paymentMode"><b>Payment Mode<font class="icon-color-bad">*</font></b></label>
+                      <select class="form-control" formControlName="id">
+                        <option disabled value=null>Select</option>
+                        <option *ngFor="let i of paymentModes" [value]="i.id">{{i.types}}</option>
+                      </select>
+                      <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentModeId').get('id').hasError('required')"
+                        class="icon-color-bad ">Please
+                        select payment mode
+                      </span>
+                    </div>
+                  </div> <br />
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <label for="date"><b>Payment Date<font class="icon-color-bad">*</font></b></label>
+                      <my-date-picker [options]="paymentDatePickerOptions" [selDate]="dateOfBirth" placeholder="Select Payment Date"
+                        name="mydate" required formControlName="paymentDate"></my-date-picker>
+                      <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentDate').hasError('required')"
+                        class="icon-color-bad">Please select payment date</span>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <label for="referenceNumber"><b>Payment Reference Number</b></label>
+                      <input type="text" class="form-control" formControlName="bankReferenceNumber">
+                    </div>
+                  </div> <br />
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <label for="comments"><b>Comments</b></label>
+                      <textarea class="form-control" formControlName="comments"></textarea>
+                    </div>
+                  </div><br />
+                  <span style="text-align:center;font-weight:bold;color:red">{{paymentDetailsErrorMessage}}</span>
+                  <div class="row" style="margin-left: 78px;">
+                    <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning" (click)="gotoHomePage()">Cancel</button></div>
+                    <div class="col-sm-6"><button class="btn btn-success" (click)="addPaymentDetails()" type="submit">
+                        Next
+                      </button></div>
+
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </sa-widget> -->
+        <br />
+        <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+          [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>Service Invoice Details</h2>
+          </header>
+          <div *ngIf="showInvoiceForm" class="widget-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="invoiceForm" novalidate>
+                  <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <label for="unicommerceReferenceNumber"><b>Unicommerce Reference Number</b></label>
+                      <input type="text" class="form-control" formControlName="unicommerceReferenceNumber">
+                    </div>
+                  </div>
+                  <br />
+                  <span style="text-align:center;font-weight:bold;color:red">{{invoiceEroorMessage}}</span>
+                  <span style="text-align:center;font-weight:bold;color:green">{{invoiceDetailsMessage}}</span>
+                  <div class="row" style="margin-left: 78px;">
+                    <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning" (click)="gotoHomePage()">Cancel</button></div>
+                    <div class="col-sm-6"><button class="btn btn-success" (click)="addUnicommerceNumber()" type="submit">
+                        Submit
+                      </button></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </sa-widget>
+      </div>
+    </div>
+  </sa-widgets-grid>
+</div>

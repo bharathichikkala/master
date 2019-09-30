@@ -1,0 +1,174 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title" style="text-align:center">Demo Product Dispatch</h4>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="invoiceForm">
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput name="invoiceId" autocomplete="off" (keyup)="getDemosBasedonSearch()"
+                                            formControlName="invoice" [(ngModel)]="invoiceId" type="text">
+                                        <mat-placeholder class="placeholder">Demo Id</mat-placeholder>
+                                    </mat-form-field>
+                                    <div class="height-skus">
+                                        <div *ngFor="let key of filteredDemoInvoicesList" (click)="selectDemoInvoice(key)"
+                                            style="border-bottom:1px solid #AAAAAA;padding: 3px">
+                                            {{key}} </div>
+                                    </div>
+                                    <span *ngIf="invoiceForm.controls['invoice'].hasError('required') &&formValidate "
+                                        class="text-danger">Please
+                                        enter Demo Id</span>
+                                    <span *ngIf="errorMessage!=null" class="text-danger">{{errorMessage}}</span>
+                                </div>
+                                <!-- <div class="col-sm-2 col-2" (click)="getInvoiceBybarcode()" style="margin: auto"><img
+                                        src="assets/img/qr-code.png">
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="noofProducts" type="number" [(ngModel)]="noofProducts">
+                                        <mat-placeholder class="placeholder">No.of Products</mat-placeholder>
+                                    </mat-form-field>
+                                    <span *ngIf="invoiceForm.controls['noofProducts'].hasError('required') &&formValidate "
+                                        class=" text-danger ">
+                                        Please enter no.of products</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="demoGivenBy" type="text" [(ngModel)]="demoGivenBy">
+                                        <mat-placeholder class="placeholder">Demo Given By</mat-placeholder>
+                                    </mat-form-field>
+                                    <span *ngIf="invoiceForm.controls['demoGivenBy'].hasError('required') &&formValidate "
+                                        class=" text-danger ">
+                                        Please enter name of the person</span>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-sm-10 col-10">
+                                    <mat-form-field>
+                                        <label>Channel</label>
+                                        <mat-select matInput formControlName="channelId" [(ngModel)]="channelId"
+                                            required>
+                                            <mat-option value="" disabled>Select</mat-option>
+                                            <mat-option (click)="changePayModeOptions()"
+                                                *ngFor="let channel of channelList" [value]="channel.id">
+                                                {{channel.channelName}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <mat-form-field>
+                                        <label>Payment Mode</label>
+                                        <mat-select matInput formControlName="payId" [(ngModel)]="payId" required
+                                            (selectionChange)="change()">
+                                            <mat-option value="" disabled>Select</mat-option>
+                                            <mat-option *ngFor="let pay of paymentModeList" [value]="pay.id">
+                                                {{pay.types}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div *ngIf='payId==1' class="row">
+                                <div class="col-sm-12 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput formControlName="receivedBy" type="text" [(ngModel)]="receivedBy">
+                                        <mat-placeholder class="placeholder">Received by</mat-placeholder>
+                                    </mat-form-field>
+                                    <span *ngIf="invoiceForm.controls['receivedBy'].hasError('required') &&formValidate "
+                                        class=" text-danger ">
+                                        Please enter person name</span>
+
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="row">
+                                <span (click)="onDeleteItem()" class="close-tag" *ngIf="image !=''">X</span>
+
+                                <div class="col-sm-10 col-10" style="margin-top:22px;display: inline-block;
+                                margin-left: auto;
+                                margin-right: auto">
+                                    <div>
+                                        <img src='assets/img/image.png' width='60%' height='30%' (click)="uploadImage()"
+                                            *ngIf="image==''">
+                                        <img *ngIf="image!=''" id='img' [src]='image' width='60%' height='50%'>
+                                       
+                                        <span *ngIf="invoiceForm.controls['image'].hasError('required') &&formValidate "
+                                            class=" text-danger ">
+                                            Please select image</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div *ngIf='(channelId==1&&payId!=8)||(channelId==7 && payId!=8)' class="row">
+                                <div class="col-sm-10 col-10">
+                                    <label><b>Upload Payment Image</b>
+                                    </label><br>
+                                    <!-- <span style='border-style: dashed; color:#ddd;float:left;' *ngIf="receiptImg" (click)="deleteReceiptImg()"
+                                        class="close-tag">X</span> -->
+                                    <!-- <button *ngIf="!receiptImg" (click)="takePicture(1)">Upload Image</button>
+                                    <button *ngIf="!receiptImg" (click)="takePicture(2)">Capture Photo</button> -->
+                                    <div class=" col-sm-10 col-10" class='row'>
+                                        <div *ngIf="!receiptImg" class=" col-sm-4 col-4">
+                                            <img src="assets/img/upload.png" width="100%" height="100px" (click)="takePicture(1)"><br>Upload
+                                            Photo</div>&nbsp;&nbsp;
+                                        <div *ngIf="!receiptImg" class=" col-sm-4 col-4">
+                                            <img src="assets/img/camera.png" width="100%" height="100px" (click)="takePicture(2)"><br>Camera</div>
+                                        <div *ngIf="receiptImg">
+                                            <img [src]="'data:image/jpg;base64,'+receiptImg" width="100%" height="125px">
+                                        </div>
+                                    </div>
+                                    <div class=" col-sm-5 col-5" class='row'>
+                                        <span *ngIf="receiptImg" (click)="deleteReceiptImg()" class="close-tag">Remove</span></div>
+                                    <br>
+                                    <span *ngIf="receiptImg=='' &&formValidate" class=" text-danger ">Please select
+                                        Payment image</span>
+                                </div>
+                            </div>
+                            <div *ngIf='(channelId==1&&payId!=8)||(channelId==7 && payId!=8)' class="row">
+                                <div class="col-sm-10 col-10">
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput [(ngModel)]="comments" formControlName="comments" required></textarea>
+                                        <mat-placeholder class="placeholder">Comments</mat-placeholder>
+                                    </mat-form-field>
+                                    <span *ngIf="formValidate && invoiceForm.controls['comments'].hasError('required')"
+                                        class=" text-danger">please
+                                        enter comments</span>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="submit()">Submit</button>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="navigatetoHomePage()">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="loaderBtn">
+                <div class="ui-overlay-c">
+                    <div class="loading" style=" margin: 0;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);">
+                        <div class="loading-bar"></div>
+                        <div class="loading-bar"></div>
+                        <div class="loading-bar"></div>
+                        <div class="loading-bar"></div>
+                        <h4 style="color: #e0dcd4">Loading....</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,173 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/servicing-products">Servicing
+            Products</span> <span> /Servicing Product Details</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Transport Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <form [formGroup]="transportaionForm" novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="transportation"><b>Transportation Type</b></label><br />
+                                                    <select class="form-control" (change)="transportType($event)"
+                                                        formControlName="transportationType">
+                                                        <option value=null disabled>Select</option>
+                                                        <option *ngFor="let a of transportationTypes">{{a.transportType}}</option>
+                                                    </select>
+                                                    <span *ngIf="this.transportationTypeSubmitted && transportaionForm.get('transportationType').hasError('required')"
+                                                        class="icon-color-bad">Please select transportation type</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <br />
+                                <div *ngIf="showSelfTransport && this.transportaionForm.valid" class="row">
+                                    <form [formGroup]="selfTransportForm" novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="name"><b>Name</b></label>
+                                                    <input type="text" class="form-control" formControlName="driverName">
+                                                    <span *ngIf="this.selfTransportFormSubmitted && selfTransportForm.get('driverName').hasError('required')"
+                                                        class="icon-color-bad">Please enter the name</span>
+                                                    <span *ngIf="selfTransportForm.get('driverName').hasError('maxlength')"
+                                                        class="icon-color-bad">Name should not exceed 64 characters
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="email"><b>Email</b></label>
+                                                    <input type="text" class="form-control" formControlName="email">
+                                                    <span *ngIf="this.selfTransportFormSubmitted && selfTransportForm.get('email').hasError('required')"
+                                                        class="icon-color-bad">Please enter the email</span>
+                                                    <span *ngIf="selfTransportForm.get('email').hasError('pattern')"
+                                                        class="icon-color-bad">Enter valid email </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="number"><b>Phone Number</b></label>
+                                                    <input type="number" class="form-control" formControlName="driverNumber">
+                                                    <span *ngIf="this.selfTransportFormSubmitted && selfTransportForm.get('driverNumber').hasError('required')"
+                                                        class="icon-color-bad">Please enter the phone number</span>
+                                                    <span *ngIf="selfTransportForm.get('driverNumber').hasError('pattern')"
+                                                        class="icon-color-bad">Phone number should be 10 digits</span>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="alternateNumber"><b>Alternate Number</b></label>
+                                                    <input type="number" class="form-control" formControlName="driverAlternateNumber">
+                                                    <span *ngIf="this.selfTransportFormSubmitted && selfTransportForm.get('driverAlternateNumber').hasError('required')"
+                                                        class="icon-color-bad">Please enter the alternate number</span>
+                                                    <span *ngIf="selfTransportForm.get('driverAlternateNumber').hasError('pattern')"
+                                                        class="icon-color-bad">Phone number should be 10 digits</span>
+                                                    <span *ngIf="selfTransportForm.get('driverNumber').value!=null && selfTransportForm.hasError('equal')"
+                                                        class=" icon-color-bad ">Please
+                                                        Enter different phone number
+
+                                                    </span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="comments"><b>Comments</b></label>
+                                                    <textarea class="form-control" formControlName="comments"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" style="text-align: right;">
+                                            <span style="text-align:center;font-weight:bold;color:red">{{errorMessage}}</span>
+                                            <span style="text-align:center;font-weight:bold;color:green;margin-left: 34%;">{{successMessage}}</span>
+                                        </div>
+                                        <br />
+                                        <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning"
+                                                (click)="gotoHomePage()" type="button">Cancel</button></div>
+                                        <div class="col-sm-6"><button class="btn btn-success" (click)="addSelfShipment()"
+                                                type="submit">
+                                                Submit
+                                            </button></div>
+                                    </form>
+                                </div>
+                                <div *ngIf="showShipingAggregator && this.transportaionForm.valid" class="row">
+                                    <form [formGroup]="shippingAggregatorForm" novalidate>
+                                        <div class="row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="aggregator"><b>Shipping Aggregator</b></label>
+                                                    <input type="text" class="form-control" formControlName="shippingAggregator">
+                                                    <span *ngIf="this.shippingAggregatorFormSubmitted && shippingAggregatorForm.get('shippingAggregator').hasError('required')"
+                                                        class="icon-color-bad">Please enter the aggregator name</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="courierName"><b>Courier Name</b></label>
+                                                    <input type="text" class="form-control" formControlName="courierName">
+                                                    <span *ngIf="this.shippingAggregatorFormSubmitted && shippingAggregatorForm.get('courierName').hasError('required')"
+                                                        class="icon-color-bad">Please enter the courier name</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="trackingNumber"><b>Tracking Number</b></label>
+                                                    <input type="text" class="form-control" formControlName="trackingNumber">
+                                                    <span *ngIf="this.shippingAggregatorFormSubmitted && shippingAggregatorForm.get('trackingNumber').hasError('required')"
+                                                        class="icon-color-bad">Please enter the tracking number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="comments"><b>Comments</b></label>
+                                                    <textarea class="form-control" formControlName="comments"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" style="text-align: right;">
+                                            <span style="text-align:center;font-weight:bold;color:red">{{errorMessage}}</span>
+                                            <span style="text-align:center;font-weight:bold;color:green;margin-left: 34%;">{{successMessage}}</span>
+                                        </div>
+                                        <br />
+                                        <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning"
+                                                (click)="gotoHomePage()" type="button">Cancel</button></div>
+                                        <div class="col-sm-6"><button class="btn btn-success" (click)="addShippingAggregator()"
+                                                type="submit">
+                                                Submit
+                                            </button></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>

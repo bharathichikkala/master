@@ -1,0 +1,95 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/servicing-products">Servicing
+            Products</span> <span> / Payment Details</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Payment Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form [formGroup]="paymentDetailsForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div hidden class="col-sm-3">
+                                            <label for="paymentStatus"><b>Payment Status<font class="icon-color-bad">*</font></b></label>
+                                            <select class="form-control" [(ngModel)]="paymentStatusValue"
+                                                formControlName="paymentStatus">
+                                                <option disabled value=''>Select</option>
+                                                <option *ngFor="let a of paymentStatuses" [value]="a.value">{{a.name}}</option>
+                                            </select>
+                                            <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentStatus').hasError('required')"
+                                                class="icon-color-bad ">Please
+                                                select payment status
+                                            </span>
+                                        </div>
+                                    </div> <br />
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-3" formGroupName="paymentModeId">
+                                            <label for="paymentMode"><b>Payment Mode<font class="icon-color-bad">*</font></b></label>
+                                            <select class="form-control" formControlName="id">
+                                                <option disabled value=null>Select</option>
+                                                <option *ngFor="let i of paymentModes" [value]="i.id">{{i.types}}</option>
+                                            </select>
+                                            <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentModeId').get('id').hasError('required')"
+                                                class="icon-color-bad ">Please
+                                                select payment mode
+                                            </span>
+                                        </div>
+                                    </div> <br />
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-3">
+                                            <label for="date"><b>Payment Date<font class="icon-color-bad">*</font></b></label>
+                                            <my-date-picker [options]="paymentDatePickerOptions" [selDate]="dateOfBirth"
+                                                placeholder="Select Payment Date" name="mydate" required
+                                                formControlName="paymentDate"></my-date-picker>
+                                            <span *ngIf="paymentDetailsSubmitted && paymentDetailsForm.get('paymentDate').hasError('required')"
+                                                class="icon-color-bad">Please select payment date</span>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-3">
+                                            <label for="referenceNumber"><b>Payment Reference Number</b></label>
+                                            <input type="text" class="form-control" formControlName="bankReferenceNumber">
+                                        </div>
+                                    </div> <br />
+                                    <div class="row">
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-3">
+                                            <label for="comments"><b>Comments</b></label>
+                                            <textarea class="form-control" formControlName="comments"></textarea>
+                                        </div>
+                                    </div><br />
+                                    <span style="text-align:center;font-weight:bold;color:red;">{{paymentDetailsErrorMessage}}</span>
+                                    <span style="text-align:center;font-weight:bold;color:green;margin-left:34%">{{paymentDetailsSuccessMessage}}</span>
+                                    <div class="row" style="margin-left: 78px;">
+                                        <div class="col-sm-5" style="text-align: right;"><button class="btn btn-warning"
+                                                (click)="gotoHomePage()">Cancel</button></div>
+                                        <div class="col-sm-5"><button class="btn btn-success" (click)="addPaymentDetails()"
+                                                type="submit">
+                                                Submit
+                                            </button></div>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>

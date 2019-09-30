@@ -1,0 +1,360 @@
+<div id="content">
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer
+                    color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-bar-chart-o"></i>
+                        </span>
+                        <h2 style="margin-right:2%;">Rental Requests </h2>
+                        <div class="widget-toolbar" role="menu">
+                            <a class="btn btn-primary" routerLink="/rental-products/add">
+                                Add Customer Details </a>
+                        </div>
+                    </header>
+                    <div class="widget-body">
+                        <form class="smart-form" id="dealer-filter-form">
+                            <fieldset style="padding:0px">
+                                <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                    <label class="control-label"><b>From</b></label>
+                                    <my-date-picker [options]="myDatePickerOptions" [selDate]="startDate"
+                                        [(ngModel)]="QueryData.startDate" name="startDate"></my-date-picker>
+                                </section>
+                                <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                    <label class="control-label"><b>To</b></label>
+                                    <my-date-picker [options]="myDatePickerOptions" [selDate]="endDate"
+                                        [(ngModel)]="QueryData.endDate" name="endDate"></my-date-picker>
+                                    <div class="icon-color-bad">{{errorMessage}}</div>
+                                </section>
+                                <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                    <label class="control-label"><b>Status</b></label>
+                                    <select class="form-control ng-pristine ng-valid ng-touched"
+                                        [(ngModel)]="statusType" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let status of statuses" [value]="status.id">
+                                            {{status.status}}</option>
+                                    </select>
+                                </section>
+                                <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                    <label class="control-label"><b>Facility</b></label>
+                                    <select class="form-control ng-pristine ng-valid ng-touched"
+                                        [(ngModel)]="locationId" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let location of locationDetails" [value]="location.id">
+                                            {{location.facility}}</option>
+                                    </select>
+                                </section>
+                                <section class="form-group col-sm-2 padding-5" *ngIf="QueryData">
+                                    <label class="control-label"><b>Service Type</b></label>
+                                    <select class="form-control ng-pristine ng-valid ng-touched" [(ngModel)]="serviceId"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let service of serviceTypes" [value]="service.id">
+                                            {{service.name}}</option>
+                                    </select>
+                                </section>
+                                <section class="form-group col-xs-1 padding-5" *ngIf="QueryData">
+                                    <br>
+                                    <button type="button" title="Submit" class="btn btn-sm btn-primary"
+                                        id="filter-submit" (click)="QuerySubmit()">Submit</button>
+                                </section>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="well padding-10">
+                        <sa-datatable id="RentalDataTable" [options]="RentalDetails"
+                            tableClass="table table-striped table-bordered table-hover" paginationLength="true"
+                            width="100%" filter="true">
+                            <thead>
+                                <tr>
+                                    <th>Ref. Id</th>
+                                    <th>Customer Name</th>
+                                    <th>Mobile Number</th>
+                                    <th>Service Type</th>
+                                    <th>Requested Date</th>
+                                    <th>Payment Mode</th>
+                                    <th>Total Charges(In Rs) </th>
+                                    <th>Rental Days</th>
+                                    <th>Rental Id</th>
+                                    <th>SKU Code</th>
+                                    <th>Product Name</th>
+                                    <th>Delivered By</th>
+                                    <th>Status</th>
+                                    <th>QR Code</th>
+                                    <th>Payment Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </sa-widgets-grid>
+    <div bsModal #rentalModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="rentalModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><strong>Customer Details</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <article class="col-sm-12 col-md-12 col-lg-12">
+                            <div sa-widget [editbutton]="false" color="greenDark">
+                                <div>
+                                    <div class="widget-body no-padding">
+                                        <div *ngIf='details' class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email Id</th>
+                                                        <th>Mobile Number</th>
+                                                        <th>Alternate Mobile Number</th>
+                                                        <th>City</th>
+                                                        <th>Address</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td *ngIf='this.custDetails.emailId ==null'>
+                                                            -</td>
+                                                        <td *ngIf='this.custDetails.emailId !=null'>
+                                                            {{this.custDetails?.emailId}}
+                                                        </td>
+                                                        <td> {{this.custDetails?.phone}}</td>
+                                                        <td *ngIf='this.custDetails.alternatePhoneNo ==null'>
+                                                            -</td>
+                                                        <td *ngIf='this.custDetails.alternatePhoneNo !=null'>
+                                                            {{this.custDetails?.alternatePhoneNo}}</td>
+                                                        <td> <span *ngIf='this.custDetails.city ==null'>-</span><span
+                                                                *ngIf='this.custDetails.phone !=null'>{{this.custDetails?.city}}</span>
+                                                        </td>                                                       
+                                                        <td *ngIf='this.custDetails.address ==null'>
+                                                            -</td>
+                                                        <td *ngIf='this.custDetails.address !=null'>
+                                                            {{this.custDetails?.address}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="rentalModal.hide()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #extensionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="extensionModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title" style="text-align: center"><strong>Extension Details
+                    </strong></h2>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Extension Count</th>
+                            <th scope="col">Extended Date</th>
+                            <th scope="col">Rental Days</th>
+                            <th scope="col">Invoice Number</th>
+                            <th scope="col">Rental Amount</th>
+                            <th scope="col">Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let details of this.viewExtensions">
+                        <tr>
+                            <td>{{details.extension}}</td>
+                            <td scope="row">{{details.extendedDate|date:'dd-MM-yyyy'}}</td>
+                            <td>{{details.rentalDays}}</td>
+                            <td>{{details.invoiceNumber}}</td>
+                            <td>{{details.rentalAmount}}</td>
+                            <td>{{details.comments}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="extensionModal.hide()">
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #dispatchImageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="dispatchImageModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><strong>Dispatch Image</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <article class="col-sm-12 col-md-12 col-lg-12">
+                        <div sa-widget [editbutton]="false" color="greenDark">
+                            <div style='border: 0px solid #CCC;'>
+                                <div class="widget-body no-padding">
+                                    <img [src]="this.dispatchImage" width="50%" /><br>
+                                    <div *ngIf='this.dispatchImage1'> <img [src]="this.dispatchImage1" width="50%" />
+                                    </div><br>
+                                    <div *ngIf='this.dispatchImage2'><img [src]="this.dispatchImage2" width="50%" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="dispatchImageModal.hide()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #convertedDetailsModel="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="convertedDetailsModel.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><strong>Converted Rental Product Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div *ngIf='convertShow'>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Rental Id</th>
+                                <th>Order Date</th>
+                                <th>Invoice Number</th>
+                                <th>Rental Days</th>
+                                <th>Rental Amount</th>
+                                <th>Product Price</th>
+                                <th>SKU Code</th>
+                                <th>Converted Comments</th>
+                                <th>Delivered By</th>
+                                <th>Product Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{this.convertedDetails.rentalId}}
+                                </td>
+                                <td> {{this.convertedDetails.orderDate|date:'dd-MM-yyyy'}}</td>
+                                <td *ngIf='this.convertedDetails.invoiceNumber ==null'>
+                                    -</td>
+                                <td *ngIf='convertedDetails.invoiceNumber !=null'>
+                                    {{convertedDetails.invoiceNumber}}</td>
+                                <td> <span *ngIf='convertedDetails.rentalDays ==null'>-</span><span
+                                        *ngIf='convertedDetails.rentalDays !=null'>{{this.convertedDetails.rentalDays}}</span>
+                                </td>
+                                <td><span *ngIf='convertedDetails.rentalAmount ==null'>-</span>
+                                    {{convertedDetails.rentalAmount}}</td>
+                                <td> <span
+                                        *ngIf='convertedDetails.productPrice ==null'>-</span>{{convertedDetails.productPrice}}
+                                </td>
+                                <td><span *ngIf='convertedDetails.skucode ==null'>-</span>{{convertedDetails.skucode}}
+                                </td>
+                                <td><span
+                                        *ngIf='convertedDetails.convertedComments ==null'>-</span>{{convertedDetails.convertedComments}}
+                                </td>
+                                <td><span
+                                        *ngIf='convertedDetails.deliveredBy ==null'>-</span>{{convertedDetails.deliveredBy}}
+                                </td>
+                                <td><span
+                                        *ngIf='convertedDetails.productName ==null'>-</span>{{convertedDetails.productName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="convertedDetailsModel.hide()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #orderModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="orderModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><strong>Make Order</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div style='border: 0px solid #CCC;'>
+
+                        <form [formGroup]="orderForm">
+                            <div class="col-sm-12">
+                                <div style="margin-top:2px;margin-bottom:2px">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3"><label for="status"><b>Invoice Number</b></label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group" style="margin-bottom:0px">
+                                            <input formControlName='invoiceNumber' class="form-control" type="text"
+                                                [(ngModel)]='invoiceNumber' placeholder="Invoice Number">
+                                            <span
+                                                *ngIf="orderForm.get('invoiceNumber').hasError('required') && submitted"
+                                                class=" icon-color-bad ">Please
+                                                enter Invoice Number</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style='text-align:center;'>
+                                    <span style="text-align:center;font-weight:bold;color:red">{{rentalFail}}</span>
+                                    <span
+                                        style="text-align:center;font-weight:bold;color:green">{{rentalSuccess}}</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top:12px;">
+                    <button type="button" class="btn btn-default" (click)="hideOrder()">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-default" [disabled]='btnDisable' (click)="makeOrder()">
+                        Make Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<loader [loading]="loading"> </loader>

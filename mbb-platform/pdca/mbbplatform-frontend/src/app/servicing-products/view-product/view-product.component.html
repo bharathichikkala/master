@@ -1,0 +1,708 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/servicing-products">Servicing
+            Products</span> <span> /Servicing Product Details</span><span> /{{ob?.servicingproduct?.serviceId}}</span>
+    </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Product Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Order Id </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label><b>{{ob?.servicingproduct?.orderId?ob?.servicingproduct?.orderId:'-'}}</b></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Order Date </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{orderDate?orderDate:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>SKU Code</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.skuCode?ob?.servicingproduct?.skuCode:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Product Name</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.productName?ob?.servicingproduct?.productName:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Product Serial Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.productSerialNumber?ob?.servicingproduct?.productSerialNumber:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Warranty</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{warranty?warranty:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Warranty In Days</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{warrantyInDays?warrantyInDays:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>QR Code</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.qrCode?ob?.servicingproduct?.qrCode:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>10 Days Return Policy</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{tenDaysReturnPolicy?tenDaysReturnPolicy:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Product Run Time</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.runTime?ob?.servicingproduct?.runTime:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Customer Remarks </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.customerRemarks?ob?.servicingproduct?.customerRemarks:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Received by</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.servicingproduct?.receivedBy?ob?.servicingproduct?.receivedBy:'-'}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Customer Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Name</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.name?ob?.servicingproduct?.customerDetailsId?.name:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Email Id</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.emailId?ob?.servicingproduct?.customerDetailsId?.emailId:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Phone Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.phone?ob?.servicingproduct?.customerDetailsId?.phone:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Address</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.address?ob?.servicingproduct?.customerDetailsId?.address:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>City</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.city?ob?.servicingproduct?.customerDetailsId?.city:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>State</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.state?ob?.servicingproduct?.customerDetailsId?.state:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Pincode</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2" style="float:left">
+                                        <label>{{ob?.servicingproduct?.customerDetailsId?.pincode?ob?.servicingproduct?.customerDetailsId?.pincode:'-'}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Quotation Details</h2>
+                    </header>
+                    <div *ngIf="quotationDetailsExist" class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>Service Charges</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.serviceCharges?ob?.quotationDetails?.serviceCharges:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>Courier Charges</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.courierCharges?ob?.quotationDetails?.courierCharges:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>Other Charges</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.otherCharges?ob?.quotationDetails?.otherCharges:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>IGST</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.igst?ob?.quotationDetails?.igst:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>CGST</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.cgst?ob?.quotationDetails?.cgst:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>SGST</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.sgst?ob?.quotationDetails?.sgst:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>UTGST</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{ob?.quotationDetails?.utgst?ob?.quotationDetails?.utgst:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3" style="text-align:left">
+                                        <label><b>Total</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-1" style="float:left">
+                                        <label>{{quotationTotal?quotationTotal:'-'}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="float:left">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Sku</b></th>
+                                            <th><b>Product Name</b></th>
+                                            <th><b>Price</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let a of ob?.spareParts">
+                                            <td>{{a.sku}}</td>
+                                            <td>{{a.productName}}</td>
+                                            <td>{{a.price}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style="text-align:right"><b>Total</b></td>
+                                            <td>{{sparePartsTotal?sparePartsTotal:'-'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <label><b>Quotation Total Charges</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>{{quotationTotalCharges?quotationTotalCharges:'-'}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body" *ngIf="!quotationDetailsExist">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label>
+                                <h3>Quotation details not added</h3>
+                            </label>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Payment Details</h2>
+                    </header>
+                    <div *ngIf="paymentsDetailsExists" class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Payment Status </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{paymentStatus?paymentStatus:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Payment Mode</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.paymentDetails?.paymentModeId?.types?ob?.paymentDetails?.paymentModeId?.types:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Payment Date</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.paymentDetails?.paymentDate?ob?.paymentDetails?.paymentDate:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Transaction Reference Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.paymentDetails?.transactionReferenceNumber?ob?.paymentDetails?.transactionReferenceNumber:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Comments</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.paymentDetails?.comments?ob?.paymentDetails?.comments:"-"}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!paymentsDetailsExists" class="widget-body">
+
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-3">
+                            <label>
+                                <h3>Payment details not added</h3>
+                            </label>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Dispatch Details</h2>
+                    </header>
+                    <div *ngIf="showDispatchStatus" class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Transportation Type</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float:left">
+                                        <label><b>{{transportType}}</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showSelfDispatch" class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Name </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{selfShipmentDetails?.driverName?selfShipmentDetails?.driverName:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Phone Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{selfShipmentDetails?.driverNumber?selfShipmentDetails?.driverNumber:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Alternate Phone Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{selfShipmentDetails?.driverAlternateNumber?selfShipmentDetails?.driverAlternateNumber:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Email</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{selfShipmentDetails?.email?selfShipmentDetails?.email:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Comments</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{selfShipmentDetails?.comments?selfShipmentDetails?.comments:"-"}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div *ngIf="showAggregator" class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Shipping Aggregator</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{shippingAggregatorDetails?.shippingAggregator?shippingAggregatorDetails?.shippingAggregator:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Courier Name</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{shippingAggregatorDetails?.courierName?shippingAggregatorDetails?.courierName:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Tracking Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{shippingAggregatorDetails?.trackingNumber?shippingAggregatorDetails?.trackingNumber:"-"}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Comments</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{shippingAggregatorDetails?.comments?shippingAggregatorDetails?.comments:"-"}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!showDispatchStatus" class="widget-body">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-3">
+                            <label>
+                                <h3>Dispatch details not added</h3>
+                            </label>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Service Invoice Details</h2>
+                    </header>
+                    <div *ngIf="invoiceDetailsExists" class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Unicommerce Reference Number</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.invoiceDetails?.unicommerceReferenceNumber?ob?.invoiceDetails?.unicommerceReferenceNumber:"-"}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body" *ngIf="!invoiceDetailsExists">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label>
+                                <h3>Service Invoice details not added</h3>
+                            </label>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>

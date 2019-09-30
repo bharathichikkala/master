@@ -1,0 +1,14 @@
+com\pals\test\cars\TestCarsDetailsPage.class
+com\pals\page\objects\BaseClass.class
+com\pals\utils\Log.class
+com\pals\utils\Utils.class
+com\pals\test\cars\TestCarsPageActions.class
+com\pals\page\objects\LoginPage.class
+com\pals\test\loads\TestLoadPageActions.class
+com\pals\page\objects\CarsPage.class
+com\pals\test\login\TestLoginPageActions.class
+com\pals\page\objects\DashboardPage.class
+com\pals\page\objects\LoadsPage.class
+com\pals\utils\Constant.class
+com\pals\utils\ReadExcelData.class
+com\pals\utils\WriteDataToExcel.class

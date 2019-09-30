@@ -1,0 +1,156 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;"
+            routerLink="/rental-products/rentals">Rental
+            Product</span> <span> / Add Rental Extension</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer
+                    color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Add Rental Extension Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-8">
+                                <form [formGroup]="rentalExtensionForm" (ngSubmit)="addRentalExtension()">
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="orderDate"><b>Extended From <font
+                                                        class="icon-color-bad">*</font></b></label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <my-date-picker [options]="datePickerOptions"
+                                                    [(ngModel)]='rentalObj.orderDate'
+                                                    [selDate]="orderDate | date: 'dd-MM-yyyy'" placeholder="Select Date"
+                                                    (dateChanged)='disableUntilSelectStartDate($event)'
+                                                    formControlName="orderDate" required>
+                                                </my-date-picker>
+                                                <span
+                                                    *ngIf="rentalExtensionForm.get('orderDate').hasError('required') && submitted"
+                                                    class="icon-color-bad ">Please
+                                                    enter Extended From Date</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="extendedDate"><b>Extended Up To <font
+                                                        class="icon-color-bad">*</font></b></label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <my-date-picker [options]="expiryDatePickerOptions"
+                                                    [(ngModel)]='rentalObj.extendedDate'
+                                                    [selDate]="dateData | date: 'dd-MM-yyyy'" placeholder="Select Date"
+                                                    (dateChanged)="getDays($event)" formControlName="extendedDate"
+                                                    required>
+                                                </my-date-picker>
+                                                <span
+                                                    *ngIf="rentalExtensionForm.get('extendedDate').hasError('required') && submitted"
+                                                    class="icon-color-bad ">Please
+                                                    enter extension date</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="rentalDays"><b>Rental Days <font
+                                                        class="icon-color-bad">*</font></b></label></div>
+                                        <div class="col-sm-4">
+                                            <input formControlName='rentalDays' class="form-control" type="number"
+                                                [(ngModel)]='rentalObj.days' placeholder="Rental Days" readonly>
+                                            <span
+                                                *ngIf="rentalExtensionForm.get('rentalDays').hasError('required') && submitted"
+                                                class=" icon-color-bad ">Please
+                                                enter Rental Days</span>
+                                            <!-- <span
+                                                *ngIf="rentalExtensionForm.get('rentalDays').hasError('pattern')&& submitted "
+                                                class=" icon-color-bad ">Please enter rental days between 30 to 365 days
+                                                only
+                                            </span> -->
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="invoiceNumber"><b>Invoice Number <font
+                                                        class="icon-color-bad">*</font></b></label></div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <div class="form-group" style="margin-bottom:0px">
+                                                    <input formControlName='invoiceNumber' class="form-control"
+                                                        type="text" [(ngModel)]='rentalObj.invoiceNumber'
+                                                        placeholder="Invoice Number">
+                                                    <span
+                                                        *ngIf="rentalExtensionForm.get('invoiceNumber').hasError('required') && submitted"
+                                                        class=" icon-color-bad ">Please
+                                                        enter Invoice Number</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="name"><b>Rental Price <font
+                                                        class="icon-color-bad">*</font></b></label></div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='rentalPrice' class="form-control" type="number"
+                                                    [(ngModel)]='rentalObj.price' placeholder="Product Price">
+                                                <span
+                                                    *ngIf="rentalExtensionForm.get('rentalPrice').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter Product Price</span>
+                                                <span
+                                                    *ngIf="rentalExtensionForm.get('rentalPrice').hasError('pattern')&& submitted "
+                                                    class=" icon-color-bad ">Please enter valid amount
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="comments"><b>comments</b></label></div>
+                                        <div class="col-sm-4">
+                                            <textarea [(ngModel)]='rentalObj.comments' formControlName="comments"
+                                                id="comments" class="form-control"
+                                                placeholder="please enter comments"></textarea>
+                                            <span *ngIf="rentalExtensionForm.get('comments').hasError('maxlength') && submitted"
+                                                class=" icon-color-bad ">Please enter comments between 1-1000
+                                                chars only
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-6">
+                                        <div style='text-align:center;' class="form-group">
+                                            <span
+                                                style="text-align:center;font-weight:bold;color:red">{{rentalFail}}</span>
+                                            <span
+                                                style="text-align:center;font-weight:bold;color:green">{{rentalSuccess}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-sm-1"></div>
+                                        <div class="col-sm-4" style="text-align: right;"><button class="btn btn-warning"
+                                                (click)="gotoHomePage()">Cancel</button>
+                                        </div>
+                                        <div class="col-sm-4"><button class="btn btn-success" type="submit"> Submit
+                                            </button></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>
+<loader [loading]="loading"> </loader>

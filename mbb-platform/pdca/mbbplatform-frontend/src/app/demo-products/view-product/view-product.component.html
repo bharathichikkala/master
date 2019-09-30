@@ -1,0 +1,199 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/demo-products">Demo
+            Products</span> <span> / Demo Product Details</span><span>/ {{demoId}}</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>View Product</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>SKU Code </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label><b>{{ob?.skuCode?ob?.skuCode:'-'}}</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Product Name </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.productName?ob?.productName:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Product Price </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.productPrice?ob?.productPrice:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Demo Price </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.demoPrice?ob?.demoPrice:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Comments </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.comments?ob?.comments:'-'}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+                <br />
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Customer Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Name </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.name?ob?.customerDetailsId?.name:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Email </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.emailId?ob?.customerDetailsId?.emailId:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Mobile</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.phone?ob?.customerDetailsId?.phone:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Alternate Mobile</b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.alternatePhoneNo?ob?.customerDetailsId?.alternatePhoneNo:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Address </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.address?ob?.customerDetailsId?.address:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Landmark </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.landmark?ob?.customerDetailsId?.landmark:'-'}}</label>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>State </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.state?ob?.customerDetailsId?.state:'-'}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" style="text-align:left">
+                                        <label><b>Pincode </b></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label><b>:</b></label>
+                                    </div>
+                                    <div class="col-sm-3" style="float: left;">
+                                        <label>{{ob?.customerDetailsId?.pincode?ob?.customerDetailsId?.pincode:'-'}}</label>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>

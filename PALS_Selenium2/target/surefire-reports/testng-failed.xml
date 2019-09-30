@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Sprint 3]">
+  <test name="Sprint1(failed)">
+    <classes>
+      <class name="com.pals.test.loads.TestLoadPageActions">
+        <methods>
+          <include name="launchSite"/>
+          <include name="addLoadDetails"/>
+        </methods>
+      </class> <!-- com.pals.test.loads.TestLoadPageActions -->
+    </classes>
+  </test> <!-- Sprint1(failed) -->
+</suite> <!-- Failed suite [Sprint 3] -->

@@ -1,0 +1,274 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;"
+            routerLink="/rental-products/rentals">Rental
+            Product</span> <span> / Add Customer Details</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer
+                    color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Add Customer Details</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-8">
+                                <form [formGroup]="rentalForm" (ngSubmit)="addRentalProduct()">
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="name"><b>Name <font class="icon-color-bad">*
+                                                    </font></b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='name' class="form-control" type="text"
+                                                    [(ngModel)]='rentalObj.name' placeholder="Name">
+                                                <span *ngIf="rentalForm.get('name').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter Name</span>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="email"><b>Email</b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='email' class="form-control" type="text"
+                                                    [(ngModel)]='rentalObj.email' placeholder="Email">
+                                                <span *ngIf="rentalForm.get('email').hasError('pattern')  && submitted"
+                                                    class="icon-color-bad ">Please
+                                                    enter valid email
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <!-- <div class="row">
+                                        <div class="col-sm-4"><label for="state"><b>State</b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <select [(ngModel)]='rentalObj.state' formControlName="state"
+                                                    placeholder="state"
+                                                    class="form-control ng-pristine ng-valid ng-touched">
+                                                    <option disabled value=null>Select State
+                                                    </option>
+                                                    <option *ngFor="let state of allStates.data" value="state.name"
+                                                        value="{{state.name}}">
+                                                        {{state.name}}</option>
+                                                </select>
+                                                <span *ngIf="rentalForm.get('state').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter State</span>
+                                            </div>
+                                        </div>
+                                    </div><br> -->
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="phoneNumber"><b>Mobile Number <font
+                                                        class="icon-color-bad">*</font></b></label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='phoneNumber' class="form-control" type="number"
+                                                    [(ngModel)]='rentalObj.phoneNumber' placeholder="Mobile Number">
+                                                <span
+                                                    *ngIf="rentalForm.get('phoneNumber').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter mobile number</span>
+                                                <span
+                                                    *ngIf="rentalForm.get('phoneNumber').hasError('pattern') && submitted"
+                                                    class="icon-color-bad ">
+                                                    Please
+                                                    enter valid mobile number
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="alterPhoneNumber"><b>Alternate Mobile
+                                                    Number</b></label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='alterPhoneNumber' class="form-control"
+                                                    type="number" [(ngModel)]='rentalObj.alterPhoneNumber'
+                                                    placeholder="Mobile Number">
+                                                <span
+                                                    *ngIf="rentalForm.get('alterPhoneNumber').hasError('pattern')  && submitted"
+                                                    class="icon-color-bad ">
+                                                    Please
+                                                    enter valid mobile number
+                                                </span>
+                                                <span
+                                                    *ngIf="rentalForm.get('phoneNumber').value !=null && rentalForm.hasError('equal')  && submitted"
+                                                    class=" icon-color-bad ">
+                                                    Both mobile numbers are same, Please enter
+                                                    alternate mobile number
+                                                </span>
+                                                <!-- <span *ngIf="compare" class="icon-color-bad ">
+                                                  
+                                                </span> -->
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="requestDate"><b>Requested Date <font
+                                                        class="icon-color-bad">*</font></b></label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <my-date-picker [options]="datePickerOptions"
+                                                    [(ngModel)]='rentalObj.requestDate'
+                                                    [selDate]="requestDate | date: 'dd-MM-yyyy'"
+                                                    placeholder="Select Date" formControlName="requestDate" required>
+                                                </my-date-picker>
+                                                <span
+                                                    *ngIf="rentalForm.get('requestDate').hasError('required') && submitted"
+                                                    class="icon-color-bad ">Please
+                                                    enter Requested Date</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-sm-4"><label for="address"><b>Address</b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <textarea [(ngModel)]='rentalObj.address' formControlName="address"
+                                                    id="address" class="form-control"
+                                                    placeholder="please enter address"></textarea>
+                                                <span
+                                                    *ngIf="rentalForm.get('address').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter address</span>
+                                            </div>
+                                        </div>
+                                    </div><br> -->
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="city"><b>City </b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='city' class="form-control" type="text"
+                                                    [(ngModel)]='rentalObj.city' placeholder="City">
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="landMark"><b>Land Mark <font
+                                                        class="icon-color-bad">*
+                                                    </font></b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <textarea [(ngModel)]='rentalObj.landMark' formControlName="landMark"
+                                                    id="landMark" class="form-control"
+                                                    placeholder="please enter Land Mark"></textarea>
+                                                <span
+                                                    *ngIf="rentalForm.get('landMark').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    enter Land Mark</span>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <!-- <div class="row">
+                                        <div class="col-sm-4"><label for="pinCode"><b>Pincode</b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <input formControlName='pinCode' class="form-control" type="text"
+                                                    [(ngModel)]='rentalObj.pinCode' placeholder="Pin Code">
+                                                <span *ngIf="rentalForm.get('pinCode').hasError('pattern')"
+                                                    class="icon-color-bad ">Please
+                                                    enter 6 digits only
+                                                </span>
+                                              
+                                            </div>
+                                        </div>
+                                    </div><br> -->
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="serviceType"><b>Rental Service
+                                                    Type <font class="icon-color-bad">*</font></b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <select [(ngModel)]='rentalObj.serviceType'
+                                                    formControlName="serviceType" placeholder="Service Type"
+                                                    class="form-control ng-pristine ng-valid ng-touched">
+                                                    <option disabled value=null>Service Type
+                                                    </option>
+                                                    <option *ngFor="let service of serviceTypes" value="service.type"
+                                                        value="{{service.id}}">
+                                                        {{service.type}}</option>
+                                                </select>
+                                                <span
+                                                    *ngIf="rentalForm.get('serviceType').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    select service type</span>
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="status"><b>Status </b></label></div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group" style="margin-bottom:0px">
+                                                <select disabled [(ngModel)]='rentalObj.status' formControlName="status"
+                                                    placeholder="status"
+                                                    class="form-control ng-pristine ng-valid ng-touched">
+                                                    <option disabled value=null>Select Status
+                                                    </option>
+                                                    <option *ngFor="let status of allStatuses" value="status.status"
+                                                        value="{{status.id}}">
+                                                        {{status.status}}</option>
+                                                </select>
+                                                <span *ngIf="rentalForm.get('status').hasError('required') && submitted"
+                                                    class=" icon-color-bad ">Please
+                                                    select status</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4"><label for="comments"><b>comments </b></label></div>
+                                        <div class="col-sm-5">
+                                            <textarea [(ngModel)]='rentalObj.comments' formControlName="comments"
+                                                id="comments" class="form-control"
+                                                placeholder="please enter comments"></textarea>
+                                            <!-- <span *ngIf="rentalForm.get('comments').hasError('required') && submitted"
+                                                class=" icon-color-bad ">Please
+                                                enter comments</span> -->
+                                            <span *ngIf="rentalForm.get('comments').hasError('maxlength') && submitted"
+                                                class=" icon-color-bad ">comments between 1-1000
+                                                chars
+                                                only
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-12">
+                                        <div style='text-align:center;' class="form-group">
+                                            <span
+                                                style="text-align:center;font-weight:bold;color:red">{{rentalFail}}</span>
+                                            <span
+                                                style="text-align:center;font-weight:bold;color:green">{{rentalSuccess}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning"
+                                                (click)="gotoHomePage()">Cancel</button>
+                                        </div>
+                                        <div class="col-sm-6"><button class="btn btn-success" type="submit"> Submit
+                                            </button></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>
+<loader [loading]="loading"> </loader>

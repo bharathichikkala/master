@@ -1,0 +1,58 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/demo-products">Demo
+            Products</span> <span> / Convert demo to order</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Convert demo to order</h2>
+                    </header>
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form [formGroup]="uniCommerceForm">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-4"></div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="unicommerceReferenceNumber"><b>Unicommerce Reference
+                                                            Number<font class="icon-color-bad">*</font></b></label>
+                                                    <input type="text" class="form-control" formControlName="unicommerceReferenceNumber"
+                                                        id="unicommerceReferenceNumber">
+                                                    <span *ngIf="this.submitted && uniCommerceForm.get('unicommerceReferenceNumber').hasError('required')"
+                                                        class="icon-color-bad ">Please
+                                                        enter unicommerce reference number
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <span style="text-align:center;font-weight:bold;color:red">{{errorMessage}}</span>
+                                    <span style="text-align:center;font-weight:bold;color:green;margin-left: 37%;">{{successMessage}}</span>
+                                    <div class="row">
+                                        <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning"
+                                                type="button" (click)="gotoHomePage()">Cancel</button>
+                                        </div>
+                                        <div class="col-sm-6"><button class="btn btn-success" type="submit" (click)="convertToOrder()">
+                                                Submit
+                                            </button></div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>

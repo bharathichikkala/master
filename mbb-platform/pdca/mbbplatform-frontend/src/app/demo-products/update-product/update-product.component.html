@@ -1,0 +1,258 @@
+<div id="content">
+    <div style="font-weight:bold"><span style="cursor: pointer;color: #335CA7;text-decoration: underline;" routerLink="/demo-products">Demo
+            Products</span> <span>/ Update Demo Product</span> </div>
+    <sa-widgets-grid>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- MAIN CONTENT -->
+                <sa-widget [sortable]="false" [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false"
+                    [colorbutton]="false" [deletebutton]="false" saSparklineContainer saEasyPieChartContainer color="blueDark">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Update Demo Product</h2>
+                    </header>
+                    <div *ngIf="showCustomerDetailsForm" class="widget-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form [formGroup]="productDetailsForm">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-4">
+                                                <table class="table borderless" style="border:0px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2" style="text-align:center">
+                                                                Product Details
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        <tr class="form-group">
+                                                            <td><label for="productName"><b>Product Name<font class="icon-color-bad">*</font>
+                                                                    </b></label></td>
+                                                            <td><input type="text" autocomplete="off" [(ngModel)]="productName"
+                                                                    class="form-control" name="productName" (keyup)="getProductNames()"
+                                                                    id="productName" formControlName="productName">
+                                                                <div class="height-skus">
+                                                                    <div *ngFor="let key of filteredproductNames"
+                                                                        (click)="selectProductName(key)" style="border-bottom:1px solid #AAAAAA;padding: 3px">
+                                                                        {{key}} </div>
+                                                                </div>
+                                                                <span *ngIf="this.submitted && this.productDetailsForm.get('productName').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter product name
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="skuCode"><b>SKU Code<font class="icon-color-bad">*</font>
+                                                                    </b></label></td>
+                                                            <td><input type="text" autocomplete="off" (keyup)="changeSku()"
+                                                                    (change)="getDetailsBySku($event)" class="form-control"
+                                                                    name="skuCode" id="skuCode" formControlName="skuCode">
+                                                                <span *ngIf="errorAlertMessages!=null" class="icon-color-bad ">{{errorAlertMessages}}</span>
+                                                                <span *ngIf="this.submitted && this.productDetailsForm.get('skuCode').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter SKU code
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr class="form-group">
+                                                            <td><label for="productPrice"><b>Product Price
+
+                                                                    </b></label></td>
+                                                            <td><input type="number" class="form-control" name="productPrice"
+                                                                    id="productPrice" formControlName="productPrice">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('productPrice').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter product price
+                                                                </span>
+                                                            </td>
+                                                        </tr> -->
+                                                        <tr class="form-group">
+                                                            <td><label for="demoPrice"><b>Demo Price
+                                                                    </b></label></td>
+                                                            <td><input type="number" class="form-control" name="demoPrice"
+                                                                    id="demoPrice" formControlName="demoPrice">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('demoPrice').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter demo price
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="form-group">
+                                                            <td> <label for="comments"><b>Comments</b></label></td>
+                                                            <td><textarea type="text" class="form-control" name="comments"
+                                                                    id="comments" style="resize: vertical"
+                                                                    formControlName="comments"></textarea>
+                                                                <!-- <span *ngIf="this.submitted && productDetailsForm.get('comments').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter comments
+                                                                </span> -->
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <table class="table borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2" style="text-align:center">Customer Details</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody formGroupName="customerDetailsId">
+                                                        <tr class="form-group">
+                                                            <td><label for="name"><b>Name<font class="icon-color-bad">*</font></b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="name"
+                                                                    id="name">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('name').hasError('required')"
+                                                                    class="icon-color-bad ">Please
+                                                                    enter name
+                                                                </span>
+                                                                <!-- <span *ngIf="productDetailsForm.get('').hasError('maxlength')"
+                                                                    class="icon-color-bad ">
+                                                                    name length should be less tha 64 characters
+                                                                </span> -->
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="email"><b>Email</b></label></td>
+                                                            <td><input type="email" class="form-control"
+                                                                    formControlName="emailId" id="emial">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('emailId').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter email
+                                                                </span>
+                                                                <!-- <span *ngIf="spForm.get('customerDetails.email').hasError('pattern') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter valid email
+                                                                </span> -->
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="phone"><b>Mobile<font class="icon-color-bad">*</font></b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="phone"
+                                                                    id="phone">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('phone').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter mobile number
+                                                                </span>
+                                                                <span *ngIf="productDetailsForm.get('customerDetailsId').get('phone').hasError('pattern')"
+                                                                    class="icon-color-bad">Phone number should be 10
+                                                                    digits</span>
+                                                                <!-- <span *ngIf="spForm.get('customerDetails.phone').hasError('pattern')  "
+                                                                    class="icon-color-bad ">
+                                                                    mobile number should be 10 digits
+                                                                </span> -->
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="alternatePhone"><b>Alternate Mobile</b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="alternatePhone"
+                                                                    id="alternatePhone">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('alternatePhone').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter alternate mobile number
+                                                                </span>
+                                                                <span *ngIf="productDetailsForm.get('customerDetailsId').get('alternatePhone').hasError('pattern')"
+                                                                    class="icon-color-bad">Phone number should be 10
+                                                                    digits</span>
+                                                                <!-- <span *ngIf="productDetailsForm.get('customerDetailsId').hasError('equal')"
+                                                                    class=" icon-color-bad ">Please
+                                                                    Enter different phone number
+                                                                </span> -->
+                                                                <!-- <span *ngIf="spForm.get('customerDetails.phone').hasError('pattern')  "
+                                                                    class="icon-color-bad ">
+                                                                    mobile number should be 10 digits
+                                                                </span> -->
+                                                                <span *ngIf="productDetailsForm.get('customerDetailsId').get('phone').value !=null && productDetailsForm.hasError('equal')"
+                                                                    class=" icon-color-bad ">Please
+                                                                    Enter different phone number
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="address"><b>Address<font class="icon-color-bad">*</font></b></label></td>
+                                                            <td><input type="text" style="resize: vertical" class="form-control"
+                                                                    formControlName="address" id="address">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('address').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter address
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="landmark"><b>Landmark</b></label></td>
+                                                            <td><textarea style="resize: vertical" type="text" class="form-control"
+                                                                    formControlName="landmark" id="landmark"></textarea>
+                                                                <!-- <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('landmark').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter landmark
+                                                                </span> -->
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr class="form-group">
+                                                            <td><label for="city"><b>City<font class="icon-color-bad">*</font></b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="city"
+                                                                    id="city">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('city').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter city
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="state"><b>State</b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="state"
+                                                                    id="state">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('state').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter state
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="form-group">
+                                                            <td><label for="pincode"><b>Pincode<font class="icon-color-bad">*</font></b></label></td>
+                                                            <td><input type="text" class="form-control" formControlName="pincode"
+                                                                    id="pincode">
+                                                                <span *ngIf="this.submitted && productDetailsForm.get('customerDetailsId').get('pincode').hasError('required') "
+                                                                    class="icon-color-bad ">Please
+                                                                    enter pincode
+                                                                </span>
+                                                            </td>
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7" style="text-align: right;margin-left: 27px">
+                                        <span style="text-align:center;font-weight:bold;color:red">{{errorMessage}}</span>
+                                        <span style="text-align:center;font-weight:bold;color:green;margin-left: 34%;">{{successMessage}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6" style="text-align: right;"><button class="btn btn-warning"
+                                                type="button" (click)="gotoHomePage()">Cancel</button>
+                                        </div>
+                                        <div class="col-sm-6"><button class="btn btn-success" type="submit" (click)="addProduct()">
+                                                Submit
+                                            </button></div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </sa-widget>
+            </div>
+        </div>
+    </sa-widgets-grid>
+</div>
